@@ -56,9 +56,8 @@ body {
 }
 
 .toggle-checkbox:checked {
-    left: 1.5rem !important;
+    transform: translateX(1.5rem);
     border-color: #00A651;
-    transform: none;
 }
 
 .toggle-checkbox:checked+.toggle-label {

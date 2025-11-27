@@ -113,6 +113,8 @@ function changeTemp(delta) {
 function toggleSecurity() {
     initAudio();
     const checkbox = document.getElementById('security-toggle');
+    if (!checkbox) return;
+
     // Checkbox'ın kendi durumunu kullan (source of truth)
     securityState = checkbox.checked;
 
@@ -120,27 +122,31 @@ function toggleSecurity() {
     const status = document.getElementById('security-status');
 
     if (securityState) {
-        overlay.classList.add('border-ek-primary');
-        status.textContent = 'AKTİF';
-        status.classList.remove('text-ek-primary');
-        status.classList.add('text-green-500');
+        if (overlay) overlay.classList.add('border-ek-primary');
+        if (status) {
+            status.textContent = 'AKTİF';
+            status.classList.remove('text-ek-primary');
+            status.classList.add('text-green-500');
+        }
         playSound('success');
     } else {
-        overlay.classList.remove('border-ek-primary');
-        status.textContent = 'DEVRE DIŞI';
-        status.classList.remove('text-green-500');
-        status.classList.add('text-ek-primary');
+        if (overlay) overlay.classList.remove('border-ek-primary');
+        if (status) {
+            status.textContent = 'DEVRE DIŞI';
+            status.classList.remove('text-green-500');
+            status.classList.add('text-ek-primary');
+        }
         playSound('click');
     }
 }
 
-let doorTimeout; // Kapı zamanlayıcısı için değişken
+let doorTimeout;
 
 function toggleDoor() {
     initAudio();
     doorState = !doorState;
+    console.log("Door State:", doorState); // Debug için
 
-    // Otomatik kapanma iptal edildi (Kullanıcı manuel kontrol istedi)
     if (doorTimeout) {
         clearTimeout(doorTimeout);
         doorTimeout = null;
@@ -162,12 +168,16 @@ function updateDoorUI(state) {
 
     if (state) {
         // KAPI AÇIK DURUMU (YEŞİL)
-        icon.textContent = 'door_open';
-        icon.classList.remove('text-red-400', 'text-red-500');
-        icon.classList.add('text-green-500');
+        if (icon) {
+            icon.textContent = 'door_open';
+            icon.classList.remove('text-red-400', 'text-red-500');
+            icon.classList.add('text-green-500');
+        }
 
-        btn.classList.remove('bg-red-500/20', 'border-red-500/50');
-        btn.classList.add('bg-green-500/20', 'border-green-500/50');
+        if (btn) {
+            btn.classList.remove('bg-red-500/20', 'border-red-500/50');
+            btn.classList.add('bg-green-500/20', 'border-green-500/50');
+        }
 
         // Bildirim Göster
         if (doorStatusLabel && doorStatusText) {
@@ -181,14 +191,15 @@ function updateDoorUI(state) {
 
     } else {
         // KAPI KAPALI DURUMU (KIRMIZI)
-        icon.textContent = 'door_front';
-        icon.classList.remove('text-green-500');
-        icon.classList.add('text-red-500');
+        if (icon) {
+            icon.textContent = 'door_front';
+            icon.classList.remove('text-green-500');
+            icon.classList.add('text-red-500');
+        }
 
-        btn.classList.remove('bg-green-500/20', 'border-green-500/50');
-        // Kapalıyken buton arka planı olmasın veya kırmızı olsun? Genelde pasif olur.
-        // Kullanıcı "tekrar tiklaninca kapi kapaliyi kirmizi yaz" dedi, bu bildirim için.
-        // Buton için pasif duruma dönüyoruz.
+        if (btn) {
+            btn.classList.remove('bg-green-500/20', 'border-green-500/50');
+        }
 
         // Bildirim Göster (Kapalı yazısı - Kırmızı)
         if (doorStatusLabel && doorStatusText) {
@@ -200,7 +211,7 @@ function updateDoorUI(state) {
             doorStatusLabel.classList.add('opacity-100', 'scale-100');
 
             // 2 saniye sonra bildirimi gizle
-            setTimeout(() => {
+            doorTimeout = setTimeout(() => {
                 if (!doorState) { // Hala kapalıysa gizle
                     doorStatusLabel.classList.remove('opacity-100', 'scale-100');
                     doorStatusLabel.classList.add('opacity-0', 'scale-90');
