@@ -224,11 +224,13 @@
 
                 <div
                     class="flex-1 bg-ek-card/80 border border-white/10 rounded-3xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 shadow-2xl backdrop-blur-xl overflow-hidden">
-                    <div class="lg:col-span-4 flex flex-col gap-4 justify-center">
-                        <div class="bg-ek-dark/50 p-4 rounded-xl border border-white/5">
-                            <h4 class="text-gray-400 text-xs mb-2 uppercase tracking-wider font-bold">Yaşam Senaryoları
+                    <div class="lg:col-span-4 flex flex-col gap-6 justify-center h-full py-4">
+                        <div class="bg-ek-dark/50 p-6 rounded-2xl border border-white/5 shadow-lg backdrop-blur-sm">
+                            <h4
+                                class="text-gray-400 text-xs mb-4 uppercase tracking-wider font-bold border-b border-white/5 pb-2">
+                                Yaşam Senaryoları
                             </h4>
-                            <div class="grid grid-cols-2 gap-3">
+                            <div class="grid grid-cols-2 gap-4">
                                 <button
                                     class="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition flex flex-col items-center gap-2 group"
                                     id="btn-light" onclick="toggleLight()">
@@ -247,26 +249,28 @@
                                     <span class="text-sm font-medium text-gray-300 group-hover:text-white">Sinema</span>
                                 </button>
                                 <button
-                                    class="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition flex flex-col items-center gap-2 group"
+                                    class="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition flex flex-col items-center gap-2 group col-span-2"
                                     id="btn-door" onclick="toggleDoor()">
                                     <span
-                                        class="material-symbols-outlined text-3xl text-green-400 group-hover:scale-110 transition"
+                                        class="material-symbols-outlined text-3xl text-red-400 group-hover:scale-110 transition"
                                         id="icon-door">door_front</span>
                                     <span class="text-sm font-medium text-gray-300 group-hover:text-white">Kapı
-                                        Aç</span>
+                                        Kontrol</span>
                                 </button>
                             </div>
                         </div>
 
-                        <div class="bg-ek-dark/50 p-5 rounded-xl border border-white/5">
-                            <h4 class="text-gray-400 text-xs mb-4 uppercase tracking-wider font-bold">İklimlendirme</h4>
-                            <div class="flex items-center justify-between bg-black/30 p-2 rounded-lg">
+                        <div class="bg-ek-dark/50 p-6 rounded-2xl border border-white/5 shadow-lg backdrop-blur-sm">
+                            <h4
+                                class="text-gray-400 text-xs mb-4 uppercase tracking-wider font-bold border-b border-white/5 pb-2">
+                                İklimlendirme</h4>
+                            <div class="flex items-center justify-between bg-black/30 p-3 rounded-xl">
                                 <button
                                     class="w-12 h-12 rounded-lg bg-white/5 hover:bg-ek-secondary hover:text-black flex items-center justify-center transition text-white"
                                     onclick="changeTemp(-0.5)">
                                     <span class="material-symbols-outlined">remove</span>
                                 </button>
-                                <span class="text-2xl font-mono text-ek-secondary font-bold"
+                                <span class="text-3xl font-mono text-ek-secondary font-bold"
                                     id="temp-control-display">21.5°C</span>
                                 <button
                                     class="w-12 h-12 rounded-lg bg-white/5 hover:bg-ek-primary hover:text-black flex items-center justify-center transition text-white"
@@ -277,7 +281,7 @@
                         </div>
 
                         <div
-                            class="bg-ek-dark/50 p-5 rounded-xl border border-white/5 flex items-center justify-between">
+                            class="bg-ek-dark/50 p-6 rounded-2xl border border-white/5 flex items-center justify-between shadow-lg backdrop-blur-sm">
                             <div>
                                 <h4 class="text-gray-400 text-xs uppercase tracking-wider font-bold">Ev Güvenliği</h4>
                                 <p class="text-sm text-ek-primary mt-1 font-bold" id="security-status">DEVRE DIŞI</p>
@@ -294,52 +298,30 @@
                     </div>
 
                     <div
-                        class="lg:col-span-8 relative rounded-2xl overflow-hidden bg-black h-[300px] lg:h-auto border border-white/5">
+                        class="lg:col-span-8 relative rounded-3xl overflow-hidden bg-black h-[500px] lg:h-auto border border-white/5 shadow-2xl">
                         <!-- Ana Görsel -->
                         <img alt="Smart Living Room" class="w-full h-full object-cover transition-all duration-1000"
                             id="demo-house-img" src="assets/images/living-room-v2.jpg">
 
-                        <!-- Işık Overlay (Tüm odayı karartmak/aydınlatmak için) -->
+                        <!-- Işık Overlay -->
                         <div class="absolute inset-0 transition-all duration-1000 bg-black/40 mix-blend-multiply pointer-events-none"
                             id="light-overlay"></div>
 
-                        <!-- İNTERAKTİF KAPI ALANI (Sol Taraf) -->
-                        <div class="absolute top-[28%] left-[8%] w-[12%] h-[55%] perspective-1000 z-20"
-                            id="door-container">
-                            <!-- Kapı Arkası (Koridor) -->
-                            <div
-                                class="absolute inset-0 bg-[#1a1a1a] flex items-center justify-center overflow-hidden rounded-sm border-r border-gray-800">
-                                <div class="w-1 h-full bg-yellow-500/20 blur-md absolute right-0"></div>
-                            </div>
-                            <!-- Hareketli Kapı Paneli -->
-                            <div class="absolute inset-0 bg-[url('../assets/images/living-room-v2.jpg')] bg-cover bg-no-repeat origin-left transition-transform duration-1000 ease-in-out border-r border-black/20 shadow-2xl"
-                                id="door-panel" style="background-position: 8% 28%; background-size: 833% 181%;">
-                                <!-- Background position görselin soluna denk gelmeli -->
-                                <!-- Kapı Kolu -->
-                                <div class="absolute right-3 top-1/2 w-2 h-8 bg-gray-400 rounded-full shadow-md"></div>
+                        <!-- Kapı Durum Bildirimi (Ortada) -->
+                        <div id="door-status-label"
+                            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 text-red-500 px-8 py-4 rounded-2xl font-bold text-2xl shadow-2xl transition-all duration-300 opacity-0 scale-90 border border-red-500/30 z-30 pointer-events-none">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-3xl">door_front</span>
+                                <span id="door-status-text">KAPI KAPALI</span>
                             </div>
                         </div>
 
-                        <!-- İNTERAKTİF TV ALANI (Sağ Taraf) -->
-                        <div class="absolute top-[35%] right-[15%] w-[22%] h-[28%] bg-black perspective-500 z-20 overflow-hidden rounded-sm shadow-[0_0_20px_rgba(0,0,0,0.5)]"
-                            id="tv-container">
-                            <!-- TV Ekranı (Kapalı) -->
-                            <div class="absolute inset-0 bg-black transition-opacity duration-500 z-10"
-                                id="tv-screen-off"></div>
-                            <!-- TV Ekranı (Açık - Film) -->
-                            <img src="assets/images/movie-projection.jpg"
-                                class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
-                                id="tv-screen-on">
-                            <!-- TV Yansıması (Glass effect) -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none z-20">
-                            </div>
-                        </div>
-
-                        <!-- Güvenlik Overlay (Kırmızı/Yeşil çerçeve) -->
+                        <!-- Güvenlik Overlay -->
                         <div class="absolute inset-0 border-8 border-transparent transition-all duration-300 pointer-events-none z-30"
                             id="security-overlay"></div>
-                        <div class="absolute bottom-6 left-6 glass px-6 py-3 rounded-xl flex items-center gap-4">
+
+                        <!-- Oda Sıcaklığı Göstergesi -->
+                        <div class="absolute bottom-6 left-6 glass px-6 py-3 rounded-xl flex items-center gap-4 z-20">
                             <div>
                                 <div class="text-xs text-gray-400 uppercase tracking-wider">Oda Sıcaklığı</div>
                                 <div class="text-3xl font-bold text-white"><span id="temp-display">21.5</span>°C</div>

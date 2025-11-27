@@ -122,7 +122,7 @@ function toggleDoor() {
     initAudio();
     doorState = !doorState;
 
-    // Eğer önceki bir zamanlayıcı varsa iptal et
+    // Otomatik kapanma iptal edildi (Kullanıcı manuel kontrol istedi)
     if (doorTimeout) {
         clearTimeout(doorTimeout);
         doorTimeout = null;
@@ -131,11 +131,6 @@ function toggleDoor() {
     updateDoorUI(doorState);
     if (doorState) {
         playSound('success');
-        // 3 saniye sonra otomatik kapan
-        doorTimeout = setTimeout(() => {
-            doorState = false;
-            updateDoorUI(false);
-        }, 3000);
     } else {
         playSound('click');
     }
@@ -144,59 +139,41 @@ function toggleDoor() {
 function updateDoorUI(state) {
     const icon = document.getElementById('icon-door');
     const btn = document.getElementById('btn-door');
-    const doorPanel = document.getElementById('door-panel');
-
-    // Kapı durumu için görsel bildirim elementi oluştur (eğer yoksa)
-    let doorStatusLabel = document.getElementById('door-status-label');
-    if (!doorStatusLabel) {
-        doorStatusLabel = document.createElement('div');
-        doorStatusLabel.id = 'door-status-label';
-        doorStatusLabel.className = 'absolute top-1/2 left-10 transform -translate-y-1/2 bg-green-500/90 text-white px-6 py-3 rounded-xl font-bold text-xl shadow-lg transition-all duration-500 opacity-0 translate-x-[-20px] z-20';
-        // Living room container'ına ekle
-        const container = document.querySelector('.lg\\:col-span-8.relative');
-        if (container) container.appendChild(doorStatusLabel);
-    }
+    const doorStatusLabel = document.getElementById('door-status-label');
+    const doorStatusText = document.getElementById('door-status-text');
 
     if (state) {
+        // KAPI AÇIK DURUMU
         icon.textContent = 'door_open';
-        icon.classList.remove('text-green-400');
-        icon.classList.add('text-green-300');
-        btn.classList.add('bg-green-500/20', 'border-green-500/50');
+        icon.classList.remove('text-red-400');
+        icon.classList.add('text-red-500'); // Kırmızı
+        btn.classList.add('bg-red-500/20', 'border-red-500/50');
 
-        // Kapı açılma animasyonu (3D Rotate)
-        if (doorPanel) {
-            doorPanel.classList.add('door-open');
-        }
-
-        // Kapı açık etiketini göster
-        if (doorStatusLabel) {
-            doorStatusLabel.innerHTML = '<div class="flex items-center gap-3"><span class="material-symbols-outlined">door_open</span>KAPI AÇIK</div>';
-            doorStatusLabel.classList.remove('opacity-0', 'translate-x-[-20px]', 'bg-gray-500/90');
-            doorStatusLabel.classList.add('opacity-100', 'translate-x-0', 'bg-green-500/90');
+        // Bildirim Göster
+        if (doorStatusLabel && doorStatusText) {
+            doorStatusText.textContent = 'KAPI AÇIK';
+            doorStatusLabel.classList.remove('opacity-0', 'scale-90');
+            doorStatusLabel.classList.add('opacity-100', 'scale-100');
         }
 
     } else {
+        // KAPI KAPALI DURUMU
         icon.textContent = 'door_front';
-        icon.classList.remove('text-green-300');
-        icon.classList.add('text-green-400');
-        btn.classList.remove('bg-green-500/20', 'border-green-500/50');
+        icon.classList.remove('text-red-500');
+        icon.classList.add('text-red-400');
+        btn.classList.remove('bg-red-500/20', 'border-red-500/50');
 
-        // Kapı kapanma animasyonu
-        if (doorPanel) {
-            doorPanel.classList.remove('door-open');
-        }
+        // Bildirim Göster (Kapalı yazısı)
+        if (doorStatusLabel && doorStatusText) {
+            doorStatusText.textContent = 'KAPI KAPALI';
+            doorStatusLabel.classList.remove('opacity-0', 'scale-90');
+            doorStatusLabel.classList.add('opacity-100', 'scale-100');
 
-        // Kapı kapalı etiketini göster
-        if (doorStatusLabel) {
-            doorStatusLabel.innerHTML = '<div class="flex items-center gap-3"><span class="material-symbols-outlined">door_front</span>KAPI KAPALI</div>';
-            doorStatusLabel.classList.remove('bg-green-500/90');
-            doorStatusLabel.classList.add('bg-gray-500/90');
-
-            // Etiketi gizle
+            // 2 saniye sonra bildirimi gizle
             setTimeout(() => {
-                if (!doorState) {
-                    doorStatusLabel.classList.remove('opacity-100', 'translate-x-0');
-                    doorStatusLabel.classList.add('opacity-0', 'translate-x-[-20px]');
+                if (!doorState) { // Hala kapalıysa gizle
+                    doorStatusLabel.classList.remove('opacity-100', 'scale-100');
+                    doorStatusLabel.classList.add('opacity-0', 'scale-90');
                 }
             }, 2000);
         }
@@ -226,23 +203,23 @@ function updateCinemaUI(state) {
     const tvContainer = document.getElementById('tv-container');
 
     if (state) {
-        // Ortamı karart
+        // Sadece ortamı hafif karart (Siyah hare yok)
         if (overlay) {
             overlay.classList.remove('bg-black/40');
-            overlay.classList.add('bg-black/90');
+            overlay.classList.add('bg-black/80');
         }
 
         icon.classList.add('text-purple-300');
         btn.classList.add('bg-purple-500/20', 'border-purple-500/50');
 
-        // TV'yi Aç
+        // TV'yi Aç (Bu kısım orijinalde vardı, yeni kodda yoktu ama korunmalı)
         if (tvScreenOn) tvScreenOn.classList.remove('opacity-0');
         if (tvContainer) tvContainer.classList.add('tv-glow');
 
     } else {
         // Ortamı normal aydınlığa döndür
         if (overlay) {
-            overlay.classList.remove('bg-black/90');
+            overlay.classList.remove('bg-black/80');
             overlay.classList.add('bg-black/40');
         }
 
