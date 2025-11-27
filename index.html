@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>OGVision | Akıllı Konut Vizyonu</title>
+    <meta content="Emlak Konut projeleri için Home Assistant tabanlı yeni nesil akıllı ev çözümleri."
+        name="description">
+
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- İkon Kütüphaneleri -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tone.js (Ses Efektleri) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <!-- Tailwind Konfigürasyonu -->
+    <script src="js/tailwind-config.js"></script>
+
+    <!-- Ana Stil Dosyası -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
+
+    <!-- Arkaplan -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <img alt="Background" class="w-full h-full object-cover opacity-20 animate-pulse-slow"
+            src="assets/images/background.jpg">
+        <div class="absolute inset-0 bg-gradient-to-t from-ek-dark via-ek-dark/80 to-transparent"></div>
+    </div>
+
+    <!-- Üst Bar -->
+    <div class="absolute top-6 right-8 z-50 flex items-center gap-4 pointer-events-none">
+        <button
+            class="flex items-center gap-2 bg-white/10 hover:bg-ek-primary text-white px-4 py-2 rounded-full border border-white/10 backdrop-blur-md pointer-events-auto transition-all shadow-lg hover:shadow-green-500/30 cursor-pointer group"
+            onclick="downloadSource()">
+            <span class="material-symbols-outlined text-sm group-hover:scale-110 transition">download</span>
+            <span class="text-xs font-bold tracking-wide">SUNUMU İNDİR</span>
+        </button>
+    </div>
+
+    <!-- İlerleme Çubuğu -->
+    <div class="absolute bottom-0 left-0 w-full h-1 bg-white/5 z-50">
+        <div class="h-full bg-gradient-to-r from-ek-primary to-ek-secondary transition-all duration-500 w-0"
+            id="progressBar"></div>
+    </div>
+
+    <!-- Navigasyon -->
+    <button
+        class="absolute left-4 top-1/2 -translate-y-1/2 z-40 p-4 text-white/30 hover:text-ek-primary transition hover:scale-110 focus:outline-none"
+        onclick="prevSlide()">
+        <span class="material-symbols-outlined text-6xl">chevron_left</span>
+    </button>
+
+    <button
+        class="absolute right-4 top-1/2 -translate-y-1/2 z-40 p-4 text-white/30 hover:text-ek-secondary transition hover:scale-110 focus:outline-none"
+        onclick="nextSlide()">
+        <span class="material-symbols-outlined text-6xl">chevron_right</span>
+    </button>
+
+    <!-- SLAYT ALANI -->
+    <div class="slide-container relative w-full max-w-7xl mx-auto">
+
+        <!-- SLAYT 1: HERO -->
+        <div class="slide" data-index="0">
+            <div class="flex flex-col items-center text-center max-w-4xl">
+                <div class="mb-8 animate-float">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-gradient-to-br from-ek-primary to-ek-secondary flex items-center justify-center shadow-[0_0_50px_rgba(0,166,81,0.4)]">
+                        <span class="material-symbols-outlined text-6xl text-white">home_app_logo</span>
+                    </div>
+                </div>
+                <h2 class="text-xl md:text-2xl font-bold tracking-[0.3em] text-ek-secondary mb-4 uppercase">
+                    Modern Konutun Yeni Standardı
+                </h2>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-none tracking-tight">
+                    <span class="text-white">OG</span><span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-ek-primary to-ek-secondary">VISION</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 font-light leading-relaxed mb-12">
+                    Emlak Konut projelerini, <strong class="text-white font-semibold">Home Assistant</strong> ve IoT
+                    teknolojisiyle yaşayan, düşünen ve hayatı kolaylaştıran prestijli yaşam alanlarına dönüştürüyoruz.
+                </p>
+                <button
+                    class="group relative px-8 py-4 bg-ek-primary text-white font-bold rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(0,166,81,0.6)]"
+                    onclick="nextSlide()">
+                    <div
+                        class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    </div>
+                    <span class="relative flex items-center gap-2 text-lg">
+                        Vizyonu Keşfet <span class="material-symbols-outlined">arrow_forward</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- SLAYT 2: PAZAR BOŞLUĞU -->
+        <div class="slide" data-index="1">
+            <div class="w-full flex flex-col justify-center h-full px-4 md:px-12">
+                <div class="flex items-center gap-4 mb-10 border-l-4 border-ek-primary pl-6">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white">Neden Standart Bir Daire Artık Yetmiyor?</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                    <div class="glass p-8 rounded-2xl glass-hover transition-all duration-300 group cursor-default">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div
+                                class="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-ek-primary transition-colors">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-ek-secondary group-hover:text-white">extension_off</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Eksik Parça: Dijital Yaşam</h3>
+                        </div>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            Parke ve mermer kalitesi artık standart. Fark yaratan unsur, evin sakiniyle iletişim
+                            kurabilmesi ve hayat akışına uyum sağlayabilmesidir.
+                        </p>
+                    </div>
+
+                    <div class="glass p-8 rounded-2xl glass-hover transition-all duration-300 group cursor-default">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div
+                                class="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-ek-secondary transition-colors">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-ek-secondary group-hover:text-white">nest_remote_comfort_sensor</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Modern Konfor Beklentisi</h3>
+                        </div>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            Tek tuşla "Sinema Modu"na geçen ışıklar, eve yaklaşırken ısınan salonlar... Bu artık lüks
+                            değil, talep edilen bir standarttır.
+                        </p>
+                    </div>
+
+                    <div
+                        class="glass p-8 rounded-2xl glass-hover transition-all duration-300 group cursor-default md:col-span-2">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div
+                                class="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-purple-500 transition-colors">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-purple-400 group-hover:text-white">verified</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Değer Katan Prestij</h3>
+                        </div>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            OGVision'lı bir daire, rakiplerinden anında ayrışır. Sadece metrekare değil, teknolojik bir
+                            yaşam stili sunarsınız.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLAYT 3: ÇÖZÜM -->
+        <div class="slide" data-index="2">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full px-4">
+                <div class="lg:col-span-5 flex flex-col justify-center">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-1 bg-ek-secondary"></div>
+                        <span class="text-ek-secondary font-bold tracking-widest uppercase">OGVISION FARKI</span>
+                    </div>
+                    <h2 class="text-5xl font-bold text-white mb-6 leading-tight">
+                        Eviniz Sizi <br>
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-ek-primary to-ek-secondary">Tanısın
+                            ve Karşılasın.</span>
+                    </h2>
+                    <p class="text-gray-300 text-xl mb-8 leading-relaxed">
+                        Dairenizi dört duvardan fazlasına; yaşayan, öğrenen ve size hizmet eden akıllı bir asistana
+                        dönüştürüyoruz.
+                    </p>
+                    <div class="flex flex-col gap-4">
+                        <div class="glass p-4 rounded-xl flex items-center gap-4 border-l-4 border-ek-primary">
+                            <span class="material-symbols-outlined text-3xl text-ek-primary">waving_hand</span>
+                            <div>
+                                <h4 class="text-white font-bold text-lg">"Hoş Geldin" Senaryosu</h4>
+                                <p class="text-sm text-gray-400">Kapı açıldığında ışıklar ve müzik sizi karşılar.</p>
+                            </div>
+                        </div>
+                        <div class="glass p-4 rounded-xl flex items-center gap-4 border-l-4 border-ek-secondary">
+                            <span class="material-symbols-outlined text-3xl text-ek-secondary">phonelink_setup</span>
+                            <div>
+                                <h4 class="text-white font-bold text-lg">Tek Uygulama</h4>
+                                <p class="text-sm text-gray-400">Tüm ev kontrolü tek bir arayüzde.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="lg:col-span-7 relative h-[50vh] lg:h-[600px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
+                    <img alt="Smart Interface"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        src="assets/images/smart-interface.jpg">
+                    <div class="absolute bottom-8 right-8 glass p-4 rounded-2xl flex items-center gap-4 animate-float">
+                        <div class="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center shadow-lg">
+                            <span class="material-symbols-outlined text-white text-2xl">check</span>
+                        </div>
+                        <div>
+                            <div class="text-white font-bold text-lg">Sistem Hazır</div>
+                            <div class="text-sm text-gray-300">22°C • Güvenli • Konforlu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLAYT 4: İNTERAKTİF DEMO -->
+        <div class="slide" data-index="3">
+            <div class="w-full h-full flex flex-col justify-center px-4 max-w-6xl">
+                <div class="flex justify-between items-end mb-6">
+                    <div class="border-l-4 border-ek-primary pl-6">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white">Canlı Deneyim: Örnek Daire</h2>
+                        <p class="text-gray-400 mt-2">Sistemi hemen şimdi test edin.</p>
+                    </div>
+                    <div
+                        class="bg-red-500/20 text-red-400 px-4 py-2 rounded-lg border border-red-500/50 text-sm font-mono animate-pulse hidden md:block">
+                        ● SİMÜLASYON AKTİF
+                    </div>
+                </div>
+
+                <div
+                    class="flex-1 bg-ek-card/80 border border-white/10 rounded-3xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 shadow-2xl backdrop-blur-xl overflow-hidden">
+                    <div
+                        class="lg:col-span-8 relative rounded-2xl overflow-hidden bg-black h-[300px] lg:h-auto border border-white/5">
+                        <img alt="Smart Living Room"
+                            class="w-full h-full object-cover transition-all duration-1000 opacity-60 filter brightness-50 grayscale-[0.3]"
+                            id="demo-house-img" src="assets/images/living-room.jpg">
+                        <div class="absolute inset-0 transition-all duration-1000 bg-transparent mix-blend-overlay"
+                            id="light-overlay"></div>
+                        <div class="absolute inset-0 border-8 border-transparent transition-all duration-300 pointer-events-none z-10"
+                            id="security-overlay"></div>
+                        <div class="absolute bottom-6 left-6 glass px-6 py-3 rounded-xl flex items-center gap-4">
+                            <div>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider">Oda Sıcaklığı</div>
+                                <div class="text-3xl font-bold text-white"><span id="temp-display">21.5</span>°C</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 flex flex-col gap-4 justify-center">
+                        <div class="bg-ek-dark/50 p-5 rounded-xl border border-white/5">
+                            <h4 class="text-gray-400 text-xs mb-4 uppercase tracking-wider font-bold">Yaşam Senaryoları
+                            </h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button
+                                    class="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition flex flex-col items-center gap-2 group"
+                                    id="btn-light" onclick="toggleLight()">
+                                    <span
+                                        class="material-symbols-outlined text-3xl text-gray-400 group-hover:text-white transition"
+                                        id="icon-light">lightbulb</span>
+                                    <span class="text-sm font-medium text-gray-300 group-hover:text-white">Hoş
+                                        Geldin</span>
+                                </button>
+                                <button
+                                    class="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition flex flex-col items-center gap-2 group"
+                                    id="btn-cinema" onclick="toggleCinema()">
+                                    <span
+                                        class="material-symbols-outlined text-3xl text-purple-400 group-hover:scale-110 transition"
+                                        id="icon-cinema">movie</span>
+                                    <span class="text-sm font-medium text-gray-300 group-hover:text-white">Sinema</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-ek-dark/50 p-5 rounded-xl border border-white/5">
+                            <h4 class="text-gray-400 text-xs mb-4 uppercase tracking-wider font-bold">İklimlendirme</h4>
+                            <div class="flex items-center justify-between bg-black/30 p-2 rounded-lg">
+                                <button
+                                    class="w-12 h-12 rounded-lg bg-white/5 hover:bg-ek-secondary hover:text-black flex items-center justify-center transition text-white"
+                                    onclick="changeTemp(-0.5)">
+                                    <span class="material-symbols-outlined">remove</span>
+                                </button>
+                                <span class="text-2xl font-mono text-ek-secondary font-bold">21.5°C</span>
+                                <button
+                                    class="w-12 h-12 rounded-lg bg-white/5 hover:bg-ek-primary hover:text-black flex items-center justify-center transition text-white"
+                                    onclick="changeTemp(0.5)">
+                                    <span class="material-symbols-outlined">add</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-ek-dark/50 p-5 rounded-xl border border-white/5 flex items-center justify-between">
+                            <div>
+                                <h4 class="text-gray-400 text-xs uppercase tracking-wider font-bold">Ev Güvenliği</h4>
+                                <p class="text-sm text-ek-primary mt-1 font-bold" id="security-status">DEVRE DIŞI</p>
+                            </div>
+                            <div class="relative inline-block w-14 align-middle select-none h-8">
+                                <input
+                                    class="toggle-checkbox absolute block w-8 h-8 rounded-full bg-white border-4 border-gray-600 appearance-none cursor-pointer transition-all duration-300 left-0"
+                                    id="security-toggle" onclick="toggleSecurity()" type="checkbox">
+                                <label
+                                    class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-700 cursor-pointer transition-colors"
+                                    for="security-toggle"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLAYT 5: TEKNOLOJİLER -->
+        <div class="slide" data-index="4">
+            <div class="w-full flex flex-col justify-center items-center text-center px-4">
+                <div class="mb-12 pb-4 border-b-4 border-ek-primary">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">Güçlü Altyapı & Teknolojiler</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+                    <div
+                        class="glass p-10 rounded-3xl flex flex-col items-center gap-6 hover:-translate-y-2 transition-transform duration-300 border-t-4 border-ek-primary">
+                        <div
+                            class="w-24 h-24 rounded-full bg-blue-500/20 flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+                            <span class="material-symbols-outlined text-5xl text-blue-400">memory</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Home Assistant</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Yerel çalışan, bulut bağımsız, maksimum gizlilik sağlayan dünyanın en gelişmiş otomasyon
+                                beyni.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="glass p-10 rounded-3xl flex flex-col items-center gap-6 hover:-translate-y-2 transition-transform duration-300 border-t-4 border-ek-secondary">
+                        <div
+                            class="w-24 h-24 rounded-full bg-ek-secondary/20 flex items-center justify-center shadow-[0_0_30px_rgba(0,212,255,0.3)]">
+                            <span class="material-symbols-outlined text-5xl text-ek-secondary">hub</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Protokoller & Ağ</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Zigbee 3.0, Z-Wave ve WiFi Mesh altyapısı ile kesintisiz, hızlı ve güvenilir cihaz
+                                iletişimi.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="glass p-10 rounded-3xl flex flex-col items-center gap-6 hover:-translate-y-2 transition-transform duration-300 border-t-4 border-purple-500">
+                        <div
+                            class="w-24 h-24 rounded-full bg-purple-500/20 flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+                            <span class="material-symbols-outlined text-5xl text-purple-400">power</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Akıllı Donanım</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Enerji ölçen akıllı prizler, hassas varlık sensörleri ve entegre iklimlendirme
+                                modülleri.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLAYT 6: MANİFESTO -->
+        <div class="slide" data-index="5">
+            <div class="w-full h-full flex flex-col justify-center items-center relative px-4">
+                <div class="absolute inset-0 z-[-1] opacity-30">
+                    <img alt="Smart City" class="w-full h-full object-cover" src="assets/images/smart-city.jpg">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
+                </div>
+                <div class="text-center max-w-5xl z-10">
+                    <h2 class="text-3xl md:text-5xl font-light text-white leading-normal md:leading-relaxed mb-10">
+                        "OGVision sadece bir otomasyon sistemi değil;<br>
+                        konut üreticileri için katma değer, aileler için <span
+                            class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-ek-primary to-ek-secondary">güvenli
+                            ve konforlu bir gelecek</span> sunan yaşam tarzı çözümüdür."
+                    </h2>
+                    <div class="flex flex-wrap gap-6 justify-center">
+                        <div
+                            class="px-6 py-3 rounded-full bg-ek-primary/20 border border-ek-primary/50 text-ek-primary font-mono text-lg tracking-wider shadow-[0_0_20px_rgba(0,166,81,0.2)]">
+                            #AkıllıYaşam
+                        </div>
+                        <div
+                            class="px-6 py-3 rounded-full bg-ek-secondary/20 border border-ek-secondary/50 text-ek-secondary font-mono text-lg tracking-wider shadow-[0_0_20px_rgba(56,189,248,0.2)]">
+                            #GüvenliGelecek
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLAYT 7: ÇIKIŞ (İLETİŞİM) -->
+        <div class="slide" data-index="6">
+            <div class="w-full h-full flex flex-col justify-center items-center relative px-4">
+                <div class="absolute inset-0 z-[-1] opacity-20">
+                    <img alt="Future Home" class="w-full h-full object-cover" src="assets/images/future-home.jpg">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent"></div>
+                </div>
+                <div class="text-center z-10">
+                    <div class="flex items-center justify-center gap-4 mb-8 animate-float">
+                        <span class="material-symbols-outlined text-8xl text-ek-primary">home_app_logo</span>
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-light text-white mb-6">
+                        Akıllı Evlere <span
+                            class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-ek-primary to-ek-secondary">Merhaba
+                            De.</span>
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light">
+                        Geleceğin konforunu bugünden inşa ediyoruz.
+                    </p>
+
+                    <!-- Contact Card -->
+                    <div
+                        class="glass p-10 rounded-3xl border border-ek-primary/30 shadow-2xl inline-block min-w-[320px] md:min-w-[450px] hover:border-ek-primary/50 transition-all duration-300 group bg-ek-primary/10 backdrop-blur-md">
+                        <div class="flex flex-col items-center gap-6">
+                            <div
+                                class="w-24 h-24 bg-gradient-to-br from-ek-primary to-green-800 rounded-full flex items-center justify-center shadow-xl p-1 border-4 border-white/10 group-hover:scale-105 transition-transform duration-500">
+                                <span class="material-symbols-outlined text-5xl text-white">person</span>
+                            </div>
+                            <div class="text-center w-full">
+                                <h3 class="text-4xl font-bold text-white mb-6 tracking-tight font-sans">Gülçin Taş</h3>
+                                <div class="flex flex-col gap-4 w-full font-sans">
+                                    <a class="flex items-center justify-center gap-3 bg-ek-primary hover:bg-green-600 text-white p-4 rounded-xl transition-all shadow-lg shadow-green-900/20 hover:shadow-green-500/40 hover:-translate-y-1"
+                                        href="https://api.whatsapp.com/send?phone=905350807470" target="_blank">
+                                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                                        <span class="font-bold text-lg tracking-wide">WhatsApp ile Yaz</span>
+                                    </a>
+                                    <a class="flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-ek-primary/50 p-4 rounded-xl transition-all text-gray-300 hover:text-white"
+                                        href="tel:05350807470">
+                                        <span class="material-symbols-outlined">call</span>
+                                        <span class="font-mono text-lg">0535 080 7470</span>
+                                    </a>
+                                    <a class="flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-ek-primary/50 p-4 rounded-xl transition-all text-gray-300 hover:text-white"
+                                        href="mailto:ce.gulcintas@gmail.com">
+                                        <span class="material-symbols-outlined">email</span>
+                                        <span class="font-mono text-lg">ce.gulcintas@gmail.com</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        class="mt-12 flex items-center gap-2 text-gray-500 hover:text-white transition mx-auto group"
+                        onclick="goToSlide(0)">
+                        <span
+                            class="material-symbols-outlined group-hover:-rotate-180 transition duration-500">replay</span>
+                        <span>Sunumu Başa Sar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Göstergeler -->
+    <div class="absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-4 z-50 hidden md:flex">
+        <button class="indicator w-3 h-3 rounded-full hover:bg-ek-primary transition-all bg-white/20"
+            onclick="goToSlide(0)"></button>
+        <button class="indicator w-3 h-3 rounded-full hover:bg-ek-primary transition-all bg-white/20"
+            onclick="goToSlide(1)"></button>
+        <button class="indicator w-3 h-3 rounded-full hover:bg-ek-primary transition-all bg-white/20"
+            onclick="goToSlide(2)"></button>
+        <button class="indicator w-3 h-3 rounded-full hover:bg-ek-primary transition-all bg-white/20"
+            onclick="goToSlide(3)"></button>
+        <button class="indicator w-3 h-3 rounded-full hover:bg-ek-primary transition-all bg-white/20"
+            onclick="goToSlide(4)"></button>
+        <button class="indicator w-3 h-3 rounded-full hover:bg-ek-primary transition-all bg-white/20"
+            onclick="goToSlide(5)"></button>
+        <button
+            class="indicator w-3 h-3 rounded-full hover:bg-ek-primary transition-all bg-ek-primary scale-150 shadow-lg"
+            onclick="goToSlide(6)"></button>
+    </div>
+
+    <!-- Ana JavaScript -->
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
