@@ -426,32 +426,81 @@
                     </p>
 
                     <!-- Contact Card -->
+                    <!-- Modern Contact Card -->
                     <div
-                        class="glass p-10 rounded-3xl border border-ek-primary/30 shadow-2xl inline-block min-w-[320px] md:min-w-[450px] hover:border-ek-primary/50 transition-all duration-300 group bg-ek-primary/10 backdrop-blur-md">
-                        <div class="flex flex-col items-center gap-6">
-                            <div
-                                class="w-24 h-24 bg-gradient-to-br from-ek-primary to-green-800 rounded-full flex items-center justify-center shadow-xl p-1 border-4 border-white/10 group-hover:scale-105 transition-transform duration-500">
-                                <span class="material-symbols-outlined text-5xl text-white">person</span>
-                            </div>
-                            <div class="text-center w-full">
-                                <h3 class="text-4xl font-bold text-white mb-6 tracking-tight font-sans">Gülçin Taş</h3>
-                                <div class="flex flex-col gap-4 w-full font-sans">
-                                    <a class="flex items-center justify-center gap-3 bg-ek-primary hover:bg-green-600 text-white p-4 rounded-xl transition-all shadow-lg shadow-green-900/20 hover:shadow-green-500/40 hover:-translate-y-1"
-                                        href="https://api.whatsapp.com/send?phone=905350807470" target="_blank">
-                                        <i class="fa-brands fa-whatsapp text-2xl"></i>
-                                        <span class="font-bold text-lg tracking-wide">WhatsApp ile Yaz</span>
-                                    </a>
-                                    <a class="flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-ek-primary/50 p-4 rounded-xl transition-all text-gray-300 hover:text-white"
-                                        href="tel:05350807470">
-                                        <span class="material-symbols-outlined">call</span>
-                                        <span class="font-mono text-lg">0535 080 7470</span>
-                                    </a>
-                                    <a class="flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-ek-primary/50 p-4 rounded-xl transition-all text-gray-300 hover:text-white"
-                                        href="mailto:ce.gulcintas@gmail.com">
-                                        <span class="material-symbols-outlined">email</span>
-                                        <span class="font-mono text-lg">ce.gulcintas@gmail.com</span>
-                                    </a>
+                        class="glass p-8 md:p-12 rounded-[2rem] border border-white/10 shadow-2xl w-full max-w-lg backdrop-blur-xl relative overflow-hidden group">
+                        <!-- Decorative Background Elements -->
+                        <div
+                            class="absolute top-0 right-0 w-64 h-64 bg-ek-primary/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none">
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 w-64 h-64 bg-ek-secondary/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none">
+                        </div>
+
+                        <div class="relative z-10 flex flex-col items-center gap-8">
+                            <!-- Profile Image/Icon -->
+                            <div class="relative">
+                                <div
+                                    class="w-32 h-32 rounded-full p-[2px] bg-gradient-to-br from-ek-primary to-ek-secondary">
+                                    <div
+                                        class="w-full h-full rounded-full bg-ek-dark flex items-center justify-center overflow-hidden relative">
+                                        <span class="material-symbols-outlined text-6xl text-white/90">person</span>
+                                    </div>
                                 </div>
+                                <div
+                                    class="absolute bottom-0 right-0 w-8 h-8 bg-green-500 rounded-full border-4 border-ek-dark flex items-center justify-center">
+                                    <span
+                                        class="material-symbols-outlined text-[14px] text-white font-bold">check</span>
+                                </div>
+                            </div>
+
+                            <!-- Name & Title -->
+                            <div class="text-center">
+                                <h3 class="text-4xl font-bold text-white mb-2 tracking-tight font-sans">Gülçin Taş</h3>
+                                <p class="text-ek-secondary font-medium tracking-wide uppercase text-sm">OGVision Proje
+                                    Yöneticisi</p>
+                            </div>
+
+                            <!-- Contact Actions -->
+                            <div class="flex flex-col gap-3 w-full">
+                                <a href="https://api.whatsapp.com/send?phone=905350807470" target="_blank"
+                                    class="flex items-center justify-between bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl transition-all group/item">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-[#25D366]/20 flex items-center justify-center text-[#25D366]">
+                                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                                        </div>
+                                        <span class="text-white font-medium">WhatsApp ile Yaz</span>
+                                    </div>
+                                    <span
+                                        class="material-symbols-outlined text-white/30 group-hover/item:text-white group-hover/item:translate-x-1 transition-all">arrow_forward</span>
+                                </a>
+
+                                <a href="tel:05350807470"
+                                    class="flex items-center justify-between bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl transition-all group/item">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                                            <span class="material-symbols-outlined">call</span>
+                                        </div>
+                                        <span class="text-white font-medium">0535 080 7470</span>
+                                    </div>
+                                    <span
+                                        class="material-symbols-outlined text-white/30 group-hover/item:text-white group-hover/item:translate-x-1 transition-all">arrow_forward</span>
+                                </a>
+
+                                <a href="mailto:ce.gulcintas@gmail.com"
+                                    class="flex items-center justify-between bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl transition-all group/item">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
+                                            <span class="material-symbols-outlined">email</span>
+                                        </div>
+                                        <span class="text-white font-medium">ce.gulcintas@gmail.com</span>
+                                    </div>
+                                    <span
+                                        class="material-symbols-outlined text-white/30 group-hover/item:text-white group-hover/item:translate-x-1 transition-all">arrow_forward</span>
+                                </a>
                             </div>
                         </div>
                     </div>
