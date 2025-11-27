@@ -10,8 +10,8 @@ tailwind.config = {
                 ek: {
                     dark: '#0f172a',  // Slate 900
                     card: '#1e293b',  // Slate 800
-                    primary: '#00A651', // Emlak Konut Green
-                    secondary: '#38bdf8', // Sky Blue
+                    primary: '#C6A87C', // Sinpaş Gold
+                    secondary: '#E5D5B9', // Champagne
                     surface: '#334155' // Slate 700
                 }
             },

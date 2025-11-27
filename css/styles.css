@@ -50,19 +50,19 @@ body {
 
 .glass-hover:hover {
     background: rgba(30, 41, 59, 0.85);
-    border-color: #00A651;
+    border-color: #C6A87C;
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px -10px rgba(0, 166, 81, 0.25);
+    box-shadow: 0 15px 40px -10px rgba(198, 168, 124, 0.25);
 }
 
 .toggle-checkbox:checked {
     left: 1.5rem !important;
-    border-color: #00A651;
+    border-color: #C6A87C;
     transform: none;
 }
 
 .toggle-checkbox:checked+.toggle-label {
-    background-color: #00A651;
+    background-color: #C6A87C;
 }
 
 /* 3D Kapı Animasyonu */
