@@ -56,10 +56,10 @@ body {
 }
 
 .toggle-checkbox:checked {
-    right: 0;
+    transform: translateX(100%);
     border-color: #00A651;
 }
 
-.toggle-checkbox:checked + .toggle-label {
+.toggle-checkbox:checked+.toggle-label {
     background-color: #00A651;
 }

@@ -116,14 +116,23 @@ function toggleSecurity() {
     }
 }
 
+let doorTimeout; // Kapı zamanlayıcısı için değişken
+
 function toggleDoor() {
     initAudio();
     doorState = !doorState;
+
+    // Eğer önceki bir zamanlayıcı varsa iptal et
+    if (doorTimeout) {
+        clearTimeout(doorTimeout);
+        doorTimeout = null;
+    }
+
     updateDoorUI(doorState);
     if (doorState) {
         playSound('success');
         // 3 saniye sonra otomatik kapan
-        setTimeout(() => {
+        doorTimeout = setTimeout(() => {
             doorState = false;
             updateDoorUI(false);
         }, 3000);
@@ -143,7 +152,6 @@ function updateDoorUI(state) {
         doorStatusLabel = document.createElement('div');
         doorStatusLabel.id = 'door-status-label';
         doorStatusLabel.className = 'absolute top-1/2 left-10 transform -translate-y-1/2 bg-green-500/90 text-white px-6 py-3 rounded-xl font-bold text-xl shadow-lg transition-all duration-500 opacity-0 translate-x-[-20px] z-20';
-        doorStatusLabel.innerHTML = '<div class="flex items-center gap-3"><span class="material-symbols-outlined">door_open</span>KAPI AÇIK</div>';
         // Living room container'ına ekle
         const container = document.querySelector('.lg\\:col-span-8.relative');
         if (container) container.appendChild(doorStatusLabel);
@@ -162,8 +170,9 @@ function updateDoorUI(state) {
 
         // Kapı açık etiketini göster
         if (doorStatusLabel) {
-            doorStatusLabel.classList.remove('opacity-0', 'translate-x-[-20px]');
-            doorStatusLabel.classList.add('opacity-100', 'translate-x-0');
+            doorStatusLabel.innerHTML = '<div class="flex items-center gap-3"><span class="material-symbols-outlined">door_open</span>KAPI AÇIK</div>';
+            doorStatusLabel.classList.remove('opacity-0', 'translate-x-[-20px]', 'bg-gray-500/90');
+            doorStatusLabel.classList.add('opacity-100', 'translate-x-0', 'bg-green-500/90');
         }
 
     } else {
@@ -177,10 +186,32 @@ function updateDoorUI(state) {
             doorOverlay.className = 'absolute inset-0 transition-all duration-700 bg-transparent border-8 border-transparent pointer-events-none z-10';
         }
 
-        // Kapı açık etiketini gizle
+        // Kapı kapalı etiketini göster (kısa bir süre sonra kaybolabilir veya kalabilir, kullanıcı "kapi kapali demesi lazim" dedi)
+        // Kullanıcı isteğine göre: "tekrar basinca da kapi acik dyior orada kapi kapali demesi lazim"
+        // Bu yüzden kapandığında "KAPI KAPALI" yazıp sonra kaybolmasını sağlayabiliriz veya direkt değiştirebiliriz.
+        // Şimdilik "KAPI KAPALI" yazıp 2 saniye sonra kaybedelim.
         if (doorStatusLabel) {
-            doorStatusLabel.classList.remove('opacity-100', 'translate-x-0');
-            doorStatusLabel.classList.add('opacity-0', 'translate-x-[-20px]');
+            doorStatusLabel.innerHTML = '<div class="flex items-center gap-3"><span class="material-symbols-outlined">door_front</span>KAPI KAPALI</div>';
+            doorStatusLabel.classList.remove('bg-green-500/90');
+            doorStatusLabel.classList.add('bg-gray-500/90');
+
+            // Eğer kapalıysa ve otomatik kapanma değilse (manuel kapama), 2 saniye sonra etiketi gizle
+            if (!doorTimeout) { // doorTimeout null ise manuel kapanmıştır (veya süre dolmuştur)
+                setTimeout(() => {
+                    if (!doorState) { // Hala kapalıysa gizle
+                        doorStatusLabel.classList.remove('opacity-100', 'translate-x-0');
+                        doorStatusLabel.classList.add('opacity-0', 'translate-x-[-20px]');
+                    }
+                }, 2000);
+            } else {
+                // Otomatik kapanma durumunda da gizle
+                setTimeout(() => {
+                    if (!doorState) {
+                        doorStatusLabel.classList.remove('opacity-100', 'translate-x-0');
+                        doorStatusLabel.classList.add('opacity-0', 'translate-x-[-20px]');
+                    }
+                }, 2000);
+            }
         }
     }
 }
@@ -207,7 +238,10 @@ function updateCinemaUI(state) {
     const projection = document.getElementById('projection-overlay');
 
     if (state) {
-        overlay.style.backgroundColor = 'rgba(75, 0, 130, 0.5)';
+        // Mor arka plan efektini kaldırdık (kullanıcı isteği)
+        // overlay.style.backgroundColor = 'rgba(75, 0, 130, 0.5)'; 
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; // Sadece ortamı karart
+
         icon.classList.add('text-purple-300');
         btn.classList.add('bg-purple-500/20', 'border-purple-500/50');
 
