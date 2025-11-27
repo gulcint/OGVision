@@ -76,7 +76,9 @@ function toggleCinema() {
 function changeTemp(delta) {
     initAudio();
     tempValue = Math.max(16, Math.min(30, tempValue + delta));
+    const tempStr = tempValue.toFixed(1) + '°C';
     document.getElementById('temp-display').textContent = tempValue.toFixed(1);
+    document.getElementById('temp-control-display').textContent = tempStr;
     playSound('click');
 }
 
@@ -85,17 +87,21 @@ function toggleSecurity() {
     securityState = !securityState;
     const overlay = document.getElementById('security-overlay');
     const status = document.getElementById('security-status');
+    const checkbox = document.getElementById('security-toggle');
+
     if (securityState) {
         overlay.classList.add('border-ek-primary');
         status.textContent = 'AKTİF';
         status.classList.remove('text-ek-primary');
         status.classList.add('text-green-500');
+        checkbox.checked = true;
         playSound('success');
     } else {
         overlay.classList.remove('border-ek-primary');
         status.textContent = 'DEVRE DIŞI';
         status.classList.remove('text-green-500');
         status.classList.add('text-ek-primary');
+        checkbox.checked = false;
         playSound('click');
     }
 }
