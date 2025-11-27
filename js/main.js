@@ -4,7 +4,7 @@ let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const indicators = document.querySelectorAll('.indicator');
 const totalSlides = slides.length;
-let lightState = false, cinemaState = false, tempValue = 21.5, securityState = false;
+let lightState = false, cinemaState = false, tempValue = 21.5, securityState = false, doorState = false;
 let synth, isAudioInit = false;
 
 // Audio Initialization
@@ -97,6 +97,38 @@ function toggleSecurity() {
         status.classList.remove('text-green-500');
         status.classList.add('text-ek-primary');
         playSound('click');
+    }
+}
+
+function toggleDoor() {
+    initAudio();
+    doorState = !doorState;
+    updateDoorUI(doorState);
+    if (doorState) {
+        playSound('success');
+        // 3 saniye sonra otomatik kapan
+        setTimeout(() => {
+            doorState = false;
+            updateDoorUI(false);
+        }, 3000);
+    } else {
+        playSound('click');
+    }
+}
+
+function updateDoorUI(state) {
+    const icon = document.getElementById('icon-door');
+    const btn = document.getElementById('btn-door');
+    if (state) {
+        icon.textContent = 'door_open';
+        icon.classList.remove('text-green-400');
+        icon.classList.add('text-green-300');
+        btn.classList.add('bg-green-500/20', 'border-green-500/50');
+    } else {
+        icon.textContent = 'door_front';
+        icon.classList.remove('text-green-300');
+        icon.classList.add('text-green-400');
+        btn.classList.remove('bg-green-500/20', 'border-green-500/50');
     }
 }
 
