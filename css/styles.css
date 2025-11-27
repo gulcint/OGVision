@@ -56,8 +56,10 @@ body {
 }
 
 .toggle-checkbox:checked {
-    transform: translateX(1.5rem);
+    left: calc(100% - 2rem);
+    /* 3.5rem container - 2rem toggle = 1.5rem space, or simply right align */
     border-color: #00A651;
+    transform: none;
 }
 
 .toggle-checkbox:checked+.toggle-label {
