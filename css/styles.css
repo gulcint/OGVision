@@ -56,7 +56,7 @@ body {
 }
 
 .toggle-checkbox:checked {
-    transform: translateX(100%);
+    transform: translateX(1.5rem);
     border-color: #00A651;
 }
 
