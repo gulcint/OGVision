@@ -144,7 +144,7 @@ function toggleDoor() {
 function updateDoorUI(state) {
     const icon = document.getElementById('icon-door');
     const btn = document.getElementById('btn-door');
-    const doorOverlay = document.getElementById('door-overlay');
+    const doorPanel = document.getElementById('door-panel');
 
     // Kapı durumu için görsel bildirim elementi oluştur (eğer yoksa)
     let doorStatusLabel = document.getElementById('door-status-label');
@@ -163,9 +163,9 @@ function updateDoorUI(state) {
         icon.classList.add('text-green-300');
         btn.classList.add('bg-green-500/20', 'border-green-500/50');
 
-        // Kapı açıldığında sol taraftan yeşil ışık hüzmesi
-        if (doorOverlay) {
-            doorOverlay.className = 'absolute inset-0 transition-all duration-700 pointer-events-none z-10 bg-gradient-to-r from-green-500/40 via-green-500/10 to-transparent border-l-8 border-green-500';
+        // Kapı açılma animasyonu (3D Rotate)
+        if (doorPanel) {
+            doorPanel.classList.add('door-open');
         }
 
         // Kapı açık etiketini göster
@@ -181,37 +181,24 @@ function updateDoorUI(state) {
         icon.classList.add('text-green-400');
         btn.classList.remove('bg-green-500/20', 'border-green-500/50');
 
-        // Kapı kapandığında efekti kaldır
-        if (doorOverlay) {
-            doorOverlay.className = 'absolute inset-0 transition-all duration-700 bg-transparent border-8 border-transparent pointer-events-none z-10';
+        // Kapı kapanma animasyonu
+        if (doorPanel) {
+            doorPanel.classList.remove('door-open');
         }
 
-        // Kapı kapalı etiketini göster (kısa bir süre sonra kaybolabilir veya kalabilir, kullanıcı "kapi kapali demesi lazim" dedi)
-        // Kullanıcı isteğine göre: "tekrar basinca da kapi acik dyior orada kapi kapali demesi lazim"
-        // Bu yüzden kapandığında "KAPI KAPALI" yazıp sonra kaybolmasını sağlayabiliriz veya direkt değiştirebiliriz.
-        // Şimdilik "KAPI KAPALI" yazıp 2 saniye sonra kaybedelim.
+        // Kapı kapalı etiketini göster
         if (doorStatusLabel) {
             doorStatusLabel.innerHTML = '<div class="flex items-center gap-3"><span class="material-symbols-outlined">door_front</span>KAPI KAPALI</div>';
             doorStatusLabel.classList.remove('bg-green-500/90');
             doorStatusLabel.classList.add('bg-gray-500/90');
 
-            // Eğer kapalıysa ve otomatik kapanma değilse (manuel kapama), 2 saniye sonra etiketi gizle
-            if (!doorTimeout) { // doorTimeout null ise manuel kapanmıştır (veya süre dolmuştur)
-                setTimeout(() => {
-                    if (!doorState) { // Hala kapalıysa gizle
-                        doorStatusLabel.classList.remove('opacity-100', 'translate-x-0');
-                        doorStatusLabel.classList.add('opacity-0', 'translate-x-[-20px]');
-                    }
-                }, 2000);
-            } else {
-                // Otomatik kapanma durumunda da gizle
-                setTimeout(() => {
-                    if (!doorState) {
-                        doorStatusLabel.classList.remove('opacity-100', 'translate-x-0');
-                        doorStatusLabel.classList.add('opacity-0', 'translate-x-[-20px]');
-                    }
-                }, 2000);
-            }
+            // Etiketi gizle
+            setTimeout(() => {
+                if (!doorState) {
+                    doorStatusLabel.classList.remove('opacity-100', 'translate-x-0');
+                    doorStatusLabel.classList.add('opacity-0', 'translate-x-[-20px]');
+                }
+            }, 2000);
         }
     }
 }
@@ -235,25 +222,36 @@ function updateCinemaUI(state) {
     const overlay = document.getElementById('light-overlay');
     const icon = document.getElementById('icon-cinema');
     const btn = document.getElementById('btn-cinema');
-    const projection = document.getElementById('projection-overlay');
+    const tvScreenOn = document.getElementById('tv-screen-on');
+    const tvContainer = document.getElementById('tv-container');
 
     if (state) {
-        // Mor arka plan efektini kaldırdık (kullanıcı isteği)
-        // overlay.style.backgroundColor = 'rgba(75, 0, 130, 0.5)'; 
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; // Sadece ortamı karart
+        // Ortamı karart
+        if (overlay) {
+            overlay.classList.remove('bg-black/40');
+            overlay.classList.add('bg-black/90');
+        }
 
         icon.classList.add('text-purple-300');
         btn.classList.add('bg-purple-500/20', 'border-purple-500/50');
 
-        // Projeksiyon efekti göster
-        projection.style.opacity = '1';
+        // TV'yi Aç
+        if (tvScreenOn) tvScreenOn.classList.remove('opacity-0');
+        if (tvContainer) tvContainer.classList.add('tv-glow');
+
     } else {
-        overlay.style.backgroundColor = 'transparent';
+        // Ortamı normal aydınlığa döndür
+        if (overlay) {
+            overlay.classList.remove('bg-black/90');
+            overlay.classList.add('bg-black/40');
+        }
+
         icon.classList.remove('text-purple-300');
         btn.classList.remove('bg-purple-500/20', 'border-purple-500/50');
 
-        // Projeksiyon efekti gizle
-        projection.style.opacity = '0';
+        // TV'yi Kapat
+        if (tvScreenOn) tvScreenOn.classList.add('opacity-0');
+        if (tvContainer) tvContainer.classList.remove('tv-glow');
     }
 }
 

@@ -63,3 +63,17 @@ body {
 .toggle-checkbox:checked+.toggle-label {
     background-color: #00A651;
 }
+
+/* 3D Kapı Animasyonu */
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.door-open {
+    transform: rotateY(-100deg);
+}
+
+/* TV Glow Efekti */
+.tv-glow {
+    box-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+}
