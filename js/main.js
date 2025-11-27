@@ -77,31 +77,36 @@ function changeTemp(delta) {
     initAudio();
     tempValue = Math.max(16, Math.min(30, tempValue + delta));
     const tempStr = tempValue.toFixed(1) + '°C';
-    document.getElementById('temp-display').textContent = tempValue.toFixed(1);
-    document.getElementById('temp-control-display').textContent = tempStr;
+    // Her iki göstergeyi de güncelle
+    const mainDisplay = document.getElementById('temp-display');
+    const controlDisplay = document.getElementById('temp-control-display');
+
+    if (mainDisplay) mainDisplay.textContent = tempValue.toFixed(1);
+    if (controlDisplay) controlDisplay.textContent = tempStr;
+
     playSound('click');
 }
 
 function toggleSecurity() {
     initAudio();
-    securityState = !securityState;
+    const checkbox = document.getElementById('security-toggle');
+    // Checkbox'ın kendi durumunu kullan (source of truth)
+    securityState = checkbox.checked;
+
     const overlay = document.getElementById('security-overlay');
     const status = document.getElementById('security-status');
-    const checkbox = document.getElementById('security-toggle');
 
     if (securityState) {
         overlay.classList.add('border-ek-primary');
         status.textContent = 'AKTİF';
         status.classList.remove('text-ek-primary');
         status.classList.add('text-green-500');
-        checkbox.checked = true;
         playSound('success');
     } else {
         overlay.classList.remove('border-ek-primary');
         status.textContent = 'DEVRE DIŞI';
         status.classList.remove('text-green-500');
         status.classList.add('text-ek-primary');
-        checkbox.checked = false;
         playSound('click');
     }
 }
@@ -133,9 +138,10 @@ function updateDoorUI(state) {
         icon.classList.add('text-green-300');
         btn.classList.add('bg-green-500/20', 'border-green-500/50');
 
-        // Kapı açıldığında yeşil ışık efekti
+        // Kapı açıldığında sol taraftan yeşil ışık hüzmesi (Kapı efekti)
         doorOverlay.classList.remove('border-transparent');
-        doorOverlay.classList.add('border-green-500', 'bg-green-500/10');
+        // Mavi yerine Yeşil Gradient
+        doorOverlay.className = 'absolute inset-0 transition-all duration-700 pointer-events-none z-10 bg-gradient-to-r from-green-500/40 via-green-500/10 to-transparent border-l-8 border-green-500';
     } else {
         icon.textContent = 'door_front';
         icon.classList.remove('text-green-300');
@@ -143,8 +149,7 @@ function updateDoorUI(state) {
         btn.classList.remove('bg-green-500/20', 'border-green-500/50');
 
         // Kapı kapandığında efekti kaldır
-        doorOverlay.classList.add('border-transparent');
-        doorOverlay.classList.remove('border-green-500', 'bg-green-500/10');
+        doorOverlay.className = 'absolute inset-0 transition-all duration-700 bg-transparent border-8 border-transparent pointer-events-none z-10';
     }
 }
 
