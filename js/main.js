@@ -119,16 +119,26 @@ function toggleDoor() {
 function updateDoorUI(state) {
     const icon = document.getElementById('icon-door');
     const btn = document.getElementById('btn-door');
+    const doorOverlay = document.getElementById('door-overlay');
+
     if (state) {
         icon.textContent = 'door_open';
         icon.classList.remove('text-green-400');
         icon.classList.add('text-green-300');
         btn.classList.add('bg-green-500/20', 'border-green-500/50');
+
+        // Kapı açıldığında yeşil ışık efekti
+        doorOverlay.classList.remove('border-transparent');
+        doorOverlay.classList.add('border-green-500', 'bg-green-500/10');
     } else {
         icon.textContent = 'door_front';
         icon.classList.remove('text-green-300');
         icon.classList.add('text-green-400');
         btn.classList.remove('bg-green-500/20', 'border-green-500/50');
+
+        // Kapı kapandığında efekti kaldır
+        doorOverlay.classList.add('border-transparent');
+        doorOverlay.classList.remove('border-green-500', 'bg-green-500/10');
     }
 }
 
@@ -151,14 +161,22 @@ function updateCinemaUI(state) {
     const overlay = document.getElementById('light-overlay');
     const icon = document.getElementById('icon-cinema');
     const btn = document.getElementById('btn-cinema');
+    const projection = document.getElementById('projection-overlay');
+
     if (state) {
         overlay.style.backgroundColor = 'rgba(75, 0, 130, 0.5)';
         icon.classList.add('text-purple-300');
         btn.classList.add('bg-purple-500/20', 'border-purple-500/50');
+
+        // Projeksiyon efekti göster
+        projection.style.opacity = '1';
     } else {
         overlay.style.backgroundColor = 'transparent';
         icon.classList.remove('text-purple-300');
         btn.classList.remove('bg-purple-500/20', 'border-purple-500/50');
+
+        // Projeksiyon efekti gizle
+        projection.style.opacity = '0';
     }
 }
 
