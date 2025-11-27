@@ -224,60 +224,6 @@
 
                 <div
                     class="flex-1 bg-ek-card/80 border border-white/10 rounded-3xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 shadow-2xl backdrop-blur-xl overflow-hidden">
-                    <div
-                        class="lg:col-span-8 relative rounded-2xl overflow-hidden bg-black h-[300px] lg:h-auto border border-white/5">
-                        <!-- Ana Görsel -->
-                        <img alt="Smart Living Room" class="w-full h-full object-cover transition-all duration-1000"
-                            id="demo-house-img" src="assets/images/living-room-v2.jpg">
-
-                        <!-- Işık Overlay (Tüm odayı karartmak/aydınlatmak için) -->
-                        <div class="absolute inset-0 transition-all duration-1000 bg-black/40 mix-blend-multiply pointer-events-none"
-                            id="light-overlay"></div>
-
-                        <!-- İNTERAKTİF KAPI ALANI (Sol Taraf) -->
-                        <div class="absolute top-[28%] left-[8%] w-[12%] h-[55%] perspective-1000 z-20"
-                            id="door-container">
-                            <!-- Kapı Arkası (Koridor) -->
-                            <div
-                                class="absolute inset-0 bg-[#1a1a1a] flex items-center justify-center overflow-hidden rounded-sm border-r border-gray-800">
-                                <div class="w-1 h-full bg-yellow-500/20 blur-md absolute right-0"></div>
-                            </div>
-                            <!-- Hareketli Kapı Paneli -->
-                            <div class="absolute inset-0 bg-[url('../assets/images/living-room-v2.jpg')] bg-cover bg-no-repeat origin-left transition-transform duration-1000 ease-in-out border-r border-black/20 shadow-2xl"
-                                id="door-panel" style="background-position: 8% 28%; background-size: 833% 181%;">
-                                <!-- Background position görselin soluna denk gelmeli -->
-                                <!-- Kapı Kolu -->
-                                <div class="absolute right-3 top-1/2 w-2 h-8 bg-gray-400 rounded-full shadow-md"></div>
-                            </div>
-                        </div>
-
-                        <!-- İNTERAKTİF TV ALANI (Sağ Taraf) -->
-                        <div class="absolute top-[35%] right-[15%] w-[22%] h-[28%] bg-black perspective-500 z-20 overflow-hidden rounded-sm shadow-[0_0_20px_rgba(0,0,0,0.5)]"
-                            id="tv-container">
-                            <!-- TV Ekranı (Kapalı) -->
-                            <div class="absolute inset-0 bg-black transition-opacity duration-500 z-10"
-                                id="tv-screen-off"></div>
-                            <!-- TV Ekranı (Açık - Film) -->
-                            <img src="assets/images/movie-projection.jpg"
-                                class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
-                                id="tv-screen-on">
-                            <!-- TV Yansıması (Glass effect) -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none z-20">
-                            </div>
-                        </div>
-
-                        <!-- Güvenlik Overlay (Kırmızı/Yeşil çerçeve) -->
-                        <div class="absolute inset-0 border-8 border-transparent transition-all duration-300 pointer-events-none z-30"
-                            id="security-overlay"></div>
-                        <div class="absolute bottom-6 left-6 glass px-6 py-3 rounded-xl flex items-center gap-4">
-                            <div>
-                                <div class="text-xs text-gray-400 uppercase tracking-wider">Oda Sıcaklığı</div>
-                                <div class="text-3xl font-bold text-white"><span id="temp-display">21.5</span>°C</div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="lg:col-span-4 flex flex-col gap-4 justify-center">
                         <div class="bg-ek-dark/50 p-4 rounded-xl border border-white/5">
                             <h4 class="text-gray-400 text-xs mb-2 uppercase tracking-wider font-bold">Yaşam Senaryoları
@@ -343,6 +289,60 @@
                                 <label
                                     class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-700 cursor-pointer transition-colors"
                                     for="security-toggle"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="lg:col-span-8 relative rounded-2xl overflow-hidden bg-black h-[300px] lg:h-auto border border-white/5">
+                        <!-- Ana Görsel -->
+                        <img alt="Smart Living Room" class="w-full h-full object-cover transition-all duration-1000"
+                            id="demo-house-img" src="assets/images/living-room-v2.jpg">
+
+                        <!-- Işık Overlay (Tüm odayı karartmak/aydınlatmak için) -->
+                        <div class="absolute inset-0 transition-all duration-1000 bg-black/40 mix-blend-multiply pointer-events-none"
+                            id="light-overlay"></div>
+
+                        <!-- İNTERAKTİF KAPI ALANI (Sol Taraf) -->
+                        <div class="absolute top-[28%] left-[8%] w-[12%] h-[55%] perspective-1000 z-20"
+                            id="door-container">
+                            <!-- Kapı Arkası (Koridor) -->
+                            <div
+                                class="absolute inset-0 bg-[#1a1a1a] flex items-center justify-center overflow-hidden rounded-sm border-r border-gray-800">
+                                <div class="w-1 h-full bg-yellow-500/20 blur-md absolute right-0"></div>
+                            </div>
+                            <!-- Hareketli Kapı Paneli -->
+                            <div class="absolute inset-0 bg-[url('../assets/images/living-room-v2.jpg')] bg-cover bg-no-repeat origin-left transition-transform duration-1000 ease-in-out border-r border-black/20 shadow-2xl"
+                                id="door-panel" style="background-position: 8% 28%; background-size: 833% 181%;">
+                                <!-- Background position görselin soluna denk gelmeli -->
+                                <!-- Kapı Kolu -->
+                                <div class="absolute right-3 top-1/2 w-2 h-8 bg-gray-400 rounded-full shadow-md"></div>
+                            </div>
+                        </div>
+
+                        <!-- İNTERAKTİF TV ALANI (Sağ Taraf) -->
+                        <div class="absolute top-[35%] right-[15%] w-[22%] h-[28%] bg-black perspective-500 z-20 overflow-hidden rounded-sm shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                            id="tv-container">
+                            <!-- TV Ekranı (Kapalı) -->
+                            <div class="absolute inset-0 bg-black transition-opacity duration-500 z-10"
+                                id="tv-screen-off"></div>
+                            <!-- TV Ekranı (Açık - Film) -->
+                            <img src="assets/images/movie-projection.jpg"
+                                class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+                                id="tv-screen-on">
+                            <!-- TV Yansıması (Glass effect) -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none z-20">
+                            </div>
+                        </div>
+
+                        <!-- Güvenlik Overlay (Kırmızı/Yeşil çerçeve) -->
+                        <div class="absolute inset-0 border-8 border-transparent transition-all duration-300 pointer-events-none z-30"
+                            id="security-overlay"></div>
+                        <div class="absolute bottom-6 left-6 glass px-6 py-3 rounded-xl flex items-center gap-4">
+                            <div>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider">Oda Sıcaklığı</div>
+                                <div class="text-3xl font-bold text-white"><span id="temp-display">21.5</span>°C</div>
                             </div>
                         </div>
                     </div>
@@ -453,7 +453,7 @@
                     <!-- Contact Card -->
                     <!-- Modern Contact Card -->
                     <div
-                        class="glass p-8 md:p-12 rounded-[2rem] border border-white/10 shadow-2xl w-full max-w-lg backdrop-blur-xl relative overflow-hidden group">
+                        class="glass p-8 md:p-12 rounded-[2rem] border border-white/10 shadow-2xl w-full max-w-lg mx-auto backdrop-blur-xl relative overflow-hidden group">
                         <!-- Decorative Background Elements -->
                         <div
                             class="absolute top-0 right-0 w-64 h-64 bg-ek-primary/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none">
